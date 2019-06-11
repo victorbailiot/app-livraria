@@ -25,7 +25,7 @@ public class ConnectionMgr
         System.out.println("Iniciando Conexao");
         try
         {
-            conexao = DriverManager.getConnection ("jdbc:mysql://localhost:3306/db_livraria?useTimezone=true&serverTimezone=UTC", "root", "Suporte99");
+            conexao = DriverManager.getConnection ("jdbc:mysql://localhost:3306/db_livraria", "root", "Suporte99");
 
         } catch (SQLException e){
             System.out.println("Erro ao se conectar!");
