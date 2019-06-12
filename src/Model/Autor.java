@@ -1,15 +1,19 @@
 package Model;
 
-public class Autor {
+public class Autor
+{
     private int id;
-    private String nome;
-    private String email;
+    private String  nome;
+    private String  email;
+
+    public Autor() {
+    }
 
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
@@ -28,5 +32,4 @@ public class Autor {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

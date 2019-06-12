@@ -26,8 +26,8 @@ public class PrincipalController implements Initializable
         try {
             AfDashboard = FXMLLoader.load(getClass().getResource("/View/Dashboard.fxml"));
             AfAutores = FXMLLoader.load(getClass().getResource("/View/Autores.fxml"));
-           // AfMunicipios = FXMLLoader.load(getClass().getResource("/View/Municipios.fxml"));
-            //AfUfs = FXMLLoader.load(getClass().getResource("/View/Ufs.fxml"));
+            AfMunicipios = FXMLLoader.load(getClass().getResource("/View/Municipios.fxml"));
+            AfUfs = FXMLLoader.load(getClass().getResource("/View/Ufs.fxml"));
             this.setNode(AfDashboard);
         }catch (Exception e) {
             System.out.println("Erro ao iniciar PrincipalController");

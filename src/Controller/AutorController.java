@@ -59,14 +59,14 @@ public class AutorController  implements Initializable
             System.out.println("Selecionado: " + ObjetoSelecionado.getNome());
     };
 
-    private EventHandler<CellEditEvent<Autor, String> > SendCommitNome = evt -> {
+    private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitNome = evt -> {
         ((Autor) evt.getTableView().getItems().get(
                 evt.getTablePosition().getRow())
         ).setNome(evt.getNewValue());
         autorDao.alterar( ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
     };
 
-    private EventHandler<CellEditEvent<Autor, String> > SendCommitEmail = evt -> {
+    private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitEmail = evt -> {
         ((Autor) evt.getTableView().getItems().get(
                 evt.getTablePosition().getRow())
         ).setEmail(evt.getNewValue());

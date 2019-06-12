@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         try
         {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/Principal.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Editoras.fxml"));
 
             Scene scene = new Scene(root);
 
