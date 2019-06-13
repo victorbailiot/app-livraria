@@ -1,7 +1,6 @@
 package Controller;
 
 import DAO.EditoraDAO;
-import DAO.MunicipioDAO;
 import Model.Editora;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
