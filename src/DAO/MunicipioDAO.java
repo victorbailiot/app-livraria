@@ -1,9 +1,8 @@
 package DAO;
 
-import Model.Municipio;
-import Model.Uf;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class MunicipioDAO extends ConnectionMgr
 
     public void Inserir(Municipio mun)
     {
-        String sql = "INSERT INTO municipio (NOME, UF_ID) VALUES (?, ?)";
+        String sql = "INSERT INTO municipio (NOME, ESTADO_ID) VALUES (?, ?)";
 
         try
         {
@@ -34,7 +33,7 @@ public class MunicipioDAO extends ConnectionMgr
 
     public ObservableList listarTodos()
     {
-        String sql = "select id, nome, estado_id, from municipio";
+        String sql = "select mun.id as id, mun.nome as nome, mun.uf_id as uf_id, uf.nome as ufnome from municipio as mun inner join ufs as uf  on uf.id = mun.uf_id";
 
         List<Municipio> muns = new ArrayList<>();
 
@@ -48,6 +47,8 @@ public class MunicipioDAO extends ConnectionMgr
                 Municipio mun = new Municipio();
                 mun.setId(resultados.getInt(1));
                 mun.setNome(resultados.getString(2));
+                mun.setUf_id(resultados.getInt(3));
+                mun.setEstado(resultados.getString(4));
                 muns.add(mun);
             }
             super.CloseConnection();
@@ -74,6 +75,26 @@ public class MunicipioDAO extends ConnectionMgr
         } catch (SQLException e) {
             System.out.println("Erro ao Deletar Municipio");
             System.out.println(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void alterar(Municipio mun)
+    {
+        String sql = "update municipio set uf = ?, nome = ? where id = ?";
+
+        try {
+
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setInt(1, mun.getUf_id());
+            stmt.setString(2, mun.getNome());
+            stmt.execute();
+
+            System.out.println("Alterado " + mun.getNome());
+            super.CloseConnection();
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

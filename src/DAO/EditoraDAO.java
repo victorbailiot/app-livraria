@@ -3,7 +3,6 @@ package DAO;
 import Model.Editora;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,37 +11,13 @@ import java.util.List;
 
 public class EditoraDAO extends ConnectionMgr
 {
-    public EditoraDAO()
-    {
+    public EditoraDAO() {
     }
 
-    public void inserir(Editora editora)
-    {
-        String sql = "insert into editora (nome, site, endereco, bairro, telefone, municipio_id) VALUES (?, ?, ?, ?, ?, 1)";
-
-        try
-        {
-            super.InitConnection();
-
-            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setString(1, editora.getNome());
-            stmt.setString(2, editora.getSite());
-            stmt.setString(3, editora.getEndereco());
-            stmt.setString(4, editora.getBairro());
-            stmt.setString(5, editora.getTelefone());
-            //stmt.setString(6, editora.getMunicipio_id());
-            stmt.execute();
-
-            super.CloseConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ObservableList listarTodos()
+    public ObservableList ListarTodos()
     {
         String sql = "select id, nome, site, endereco, bairro, telefone from editoras";
-        List<Editora> editoras = new ArrayList<>();
+        List<Editora> muns = new ArrayList<>();
 
         try
         {
@@ -52,96 +27,89 @@ public class EditoraDAO extends ConnectionMgr
 
             while (resultados.next()){
                 Editora editora = new Editora();
-                editora.setId(resultados.getInt("id"));
-                editora.setNome(resultados.getString("nome"));
-                editora.setSite(resultados.getString("site"));
-                editora.setEndereco(resultados.getString("endereco"));
-                editora.setBairro(resultados.getString("bairro"));
-                editora.setTelefone(resultados.getString("telefone"));
-                //editora.setMunicipio_id(resultados.getString("municipio_id"));
-                editoras.add(editora);
+                editora.setId(resultados.getInt(1));
+                editora.setNome(resultados.getString(2));
+                editora.setSite(resultados.getString(3));
+                editora.setEndereco(resultados.getString(4));
+                editora.setBairro(resultados.getString(5));
+                editora.setTelefone(resultados.getString(6));
+                muns.add(editora);
             }
             super.CloseConnection();
         } catch (SQLException e) {
+            System.out.println("Erro ao buscar todos Editoras");
             System.out.println(e);
             throw new RuntimeException(e);
         }
-        ObservableList data = FXCollections.observableList(editoras);
+        ObservableList data = FXCollections.observableList(muns);
         return data;
     }
 
-    public void alterar(Editora editora)
+    public void Inserir(Editora edt)
     {
-        String sql = "update autores set nome = ?, site = ?, endereco = ?, bairro = ?, telefone = ? where id = ?";
-
-        try {
-
-            super.InitConnection();
-            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setString(1, editora.getNome());
-            stmt.setString(2, editora.getSite());
-            stmt.setString(3, editora.getEndereco());
-            stmt.setString(4, editora.getBairro());
-            stmt.setString(5, editora.getTelefone());
-            stmt.setString(6, editora.getMunicipio_id());
-
-            stmt.execute();
-
-            System.out.println("Alterado " + editora.getNome());
-            super.CloseConnection();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void deletar(Editora editora) {
-        String sql = "delete from editoras where id = ?";
-
+        String sql = "INSERT INTO EDITORAS( NOME, SITE, ENDERECO, BAIRRO, TELEFONE VALUES  (?, ?, ?, ?, ?)";
         try
         {
             super.InitConnection();
             PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setInt(1, editora.getId());
-            //Executar
+            stmt.setString(1, edt.getNome());
+            stmt.setString(2, edt.getSite());
+            stmt.setString(3, edt.getEndereco());
+            stmt.setString(4, edt.getBairro());
+            stmt.setString(5, edt.getTelefone());
             stmt.execute();
             super.CloseConnection();
         } catch (SQLException e) {
-            System.out.println("Erro ao Deletar");
+            System.out.println("Erro ao inserir Editora!");
             System.out.println(e);
             throw new RuntimeException(e);
         }
-
     }
 
-    public Editora listarPorId(Editora editora)
-    {
-        String sql = "select id, nome, email from autores where id = ?";
 
-        try {
+    public void Deletar(Editora edt)
+    {
+        String sql = "delete from editoras where id = ?";
+        try
+        {
             super.InitConnection();
             PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setInt(1, editora.getId());
-
-            //Executar
-            ResultSet resultados = stmt.executeQuery();
-
-            //Encontra resultado
-            while(resultados.next()) {
-                editora.setId(resultados.getInt("id"));
-                editora.setNome(resultados.getString("nome"));
-                editora.setSite(resultados.getString("site"));
-                editora.setEndereco(resultados.getString("endereco"));
-                editora.setBairro(resultados.getString("bairro"));
-                editora.setTelefone(resultados.getString("telefone"));
-                editora.setMunicipio_id(resultados.getString("municipio_id"));
-            }
-
+            stmt.setInt(1, edt.getId());
+            stmt.execute();
             super.CloseConnection();
         } catch (SQLException e) {
+            System.out.println("Erro ao Deletar Editora");
+            System.out.println(e);
             throw new RuntimeException(e);
         }
+    }
 
-        return editora;
+
+    public void Alterar(Editora edt)
+    {
+        String sql = "UPDATE editoras SET NOME= ?, " +
+                " SITE = ?," +
+                " ENDERECO = ?," +
+                " BAIRRO= ?," +
+                " TELEFONE= ?," +
+                " WHERE ID = ?";
+        try
+        {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setString(1, edt.getNome());
+            stmt.setString(2, edt.getSite());
+            stmt.setString(3, edt.getEndereco());
+            stmt.setString(4, edt.getBairro());
+            stmt.setString(5, edt.getTelefone());
+            stmt.execute();
+            System.out.println("Alterado " + edt.getNome());
+            super.CloseConnection();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao Alterar Editora");
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
     }
 }

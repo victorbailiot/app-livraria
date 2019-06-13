@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 
 public class AutorController  implements Initializable
 {
@@ -60,9 +59,7 @@ public class AutorController  implements Initializable
     };
 
     private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitNome = evt -> {
-        ((Autor) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setNome(evt.getNewValue());
+        ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())).setNome(evt.getNewValue());
         autorDao.alterar( ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
     };
 

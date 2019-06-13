@@ -1,9 +1,5 @@
 package Controller;
 
-import Model.Autor;
-import Model.Uf;
-import DAO.UfDAO;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

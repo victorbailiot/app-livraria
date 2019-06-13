@@ -8,7 +8,6 @@ public class Editora
     private String endereco;
     private String bairro;
     private String telefone;
-    private String municipio_id;
 
     public int getId() {
         return id;
@@ -56,13 +55,5 @@ public class Editora
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getMunicipio_id() {
-        return municipio_id;
-    }
-
-    public void setMunicipio_id(String municipio_id) {
-        this.municipio_id = municipio_id;
     }
 }
