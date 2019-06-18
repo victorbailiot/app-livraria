@@ -18,7 +18,7 @@ public class AutorDAO extends ConnectionMgr
 
     public void inserir(Autor autor)
     {
-        String sql = "INSERT INTO AUTORES (NOME, EMAIL) VALUES (?, ?)";
+        String sql = "insert into autores(nome, email) values (?, ?)";
 
         try
         {

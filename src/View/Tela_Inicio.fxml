@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaInicioController">
+   <children>
+      <Label layoutX="425.0" layoutY="120.0" text="Cadastro Livraria">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="340.0" fitWidth="357.0" layoutX="440.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Auxiliar/1" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

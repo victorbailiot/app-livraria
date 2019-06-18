@@ -47,7 +47,7 @@ public class EditoraDAO extends ConnectionMgr
 
     public void Inserir(Editora edt)
     {
-        String sql = "INSERT INTO EDITORAS( NOME, SITE, ENDERECO, BAIRRO, TELEFONE VALUES  (?, ?, ?, ?, ?)";
+        String sql = "insert into editoras(NOME, SITE, ENDERECO, BAIRRO, TELEFONE) VALUES  (?, ?, ?, ?, ?)";
         try
         {
             super.InitConnection();

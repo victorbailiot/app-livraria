@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         try
         {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/Livros.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Menu.fxml"));
 
             Scene scene = new Scene(root);
 

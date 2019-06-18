@@ -3,19 +3,15 @@ package Controller;
 import DAO.EditoraDAO;
 import Model.Editora;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 
 public class EditoraController  implements Initializable
@@ -31,19 +27,15 @@ public class EditoraController  implements Initializable
     @FXML private TableColumn<Editora,String> colMun = new TableColumn<>("MUNICIPIO");
 
     @FXML private Button btnList,btnSalvar,btnDeletar;
-    @FXML private ComboBox<Municipio> cbMun = new ComboBox();
     @FXML private TextField txfNome,txfEnd, txfSite, txfBairro, txfTel;
 
     private Editora editora = new Editora();
     private EditoraDAO editoraDAO = new EditoraDAO();
     private Editora EdtObjetoSelecionado;
-    private Municipio MunObjetoSelecionado;
-    private MunicipioDAO munDAO = new MunicipioDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        InitCombox();
         InitTable();
     }
 
@@ -54,8 +46,6 @@ public class EditoraController  implements Initializable
         editora.setSite(txfSite.getText());
         editora.setBairro(txfBairro.getText());
         editora.setTelefone(txfTel.getText());
-      //  editora.setMunicipio_id(MunObjetoSelecionado.getId());
-       // editora.setMunicipio(MunObjetoSelecionado.getNome());
 
         editoraDAO.Inserir(editora);
 
@@ -96,52 +86,6 @@ public class EditoraController  implements Initializable
     }
 
 
-    public void InitCombox()
-    {
-        cbMun.setPromptText("Selecione um Municipio");
-        cbMun.cellFactoryProperty();
-        cbMun.setOnMouseClicked(ComboClick);
-        cbMun.setCellFactory(ComboFactory);
-        cbMun.setOnAction(ComboAction);
-        cbMun.setConverter(new StringConverter<Municipio>() {
-            @Override
-            public String toString(Municipio mun) {
-                if (mun == null){
-                    return null;
-                } else {
-                    return mun.getNome();
-                }
-            }
-            @Override
-            public Municipio fromString(String munId) {
-                return null;
-            }
-        });
-    }
-
-    private EventHandler<MouseEvent> ComboClick = evt -> {
-        cbMun.setItems(munDAO.listarTodos());
-    };
-    private EventHandler<ActionEvent> ComboAction = evt -> {
-        MunObjetoSelecionado = cbMun.getSelectionModel().getSelectedItem();
-        if (MunObjetoSelecionado != null)
-            System.out.println("Selecionado: " + MunObjetoSelecionado.getNome());
-    };
-    private Callback<ListView<Municipio>,ListCell<Municipio>> ComboFactory = evt ->
-    {
-        return new ListCell<Municipio>() {
-            @Override
-            protected void updateItem(Municipio item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setGraphic(null);
-                } else {
-                    setText(item.getNome());
-                }
-            }
-        };
-    };
-
     public void InitTable()
     {
         EdtObjetoSelecionado = null;
@@ -167,9 +111,6 @@ public class EditoraController  implements Initializable
         colTel.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getTelefone()) );
         colTel.setCellFactory(TextFieldTableCell.forTableColumn());
         colTel.setOnEditCommit(SendCommitTel);
-
-        //colMun.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getMunicipio()) );
-        //colMun.setCellFactory(ComboBoxTableCell.forTableColumn());
 
         tableView.setItems(editoraDAO.ListarTodos());
         tableView.setOnMouseClicked(TableClick);

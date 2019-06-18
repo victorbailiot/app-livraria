@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Autor;
 import DAO.AutorDAO;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.beans.property.*;
