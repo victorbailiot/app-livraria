@@ -33,6 +33,48 @@ public class EditoraController  implements Initializable
     private EditoraDAO editoraDAO = new EditoraDAO();
     private Editora EdtObjetoSelecionado;
 
+
+    private EventHandler<MouseEvent> TableClick = evt -> {
+        EdtObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();
+        if (EdtObjetoSelecionado != null)
+            System.out.println("Selecionado: " + EdtObjetoSelecionado.getNome());
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitNome = evt -> {
+        ((Editora) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setNome(evt.getNewValue());
+        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitSite = evt -> {
+        ((Editora) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setSite(evt.getNewValue());
+        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitEnd = evt -> {
+        ((Editora) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setEndereco(evt.getNewValue());
+        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitBairro = evt -> {
+        ((Editora) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setBairro(evt.getNewValue());
+        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitTel = evt -> {
+        ((Editora) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setTelefone(evt.getNewValue());
+        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -115,48 +157,6 @@ public class EditoraController  implements Initializable
         tableView.setItems(editoraDAO.ListarTodos());
         tableView.setOnMouseClicked(TableClick);
     }
-
-    private EventHandler<MouseEvent> TableClick = evt -> {
-        EdtObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();
-        if (EdtObjetoSelecionado != null)
-            System.out.println("Selecionado: " + EdtObjetoSelecionado.getNome());
-    };
-
-    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitNome = evt -> {
-        ((Editora) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setNome(evt.getNewValue());
-        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
-    };
-
-    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitSite = evt -> {
-        ((Editora) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setSite(evt.getNewValue());
-        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
-    };
-
-    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitEnd = evt -> {
-        ((Editora) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setEndereco(evt.getNewValue());
-        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
-    };
-
-    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitBairro = evt -> {
-        ((Editora) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setBairro(evt.getNewValue());
-        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
-    };
-
-    private EventHandler<TableColumn.CellEditEvent<Editora, String> > SendCommitTel = evt -> {
-        ((Editora) evt.getTableView().getItems().get(
-                evt.getTablePosition().getRow())
-        ).setTelefone(evt.getNewValue());
-        editoraDAO.Alterar( ((Editora) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
-    };
-
 
 
 

@@ -15,23 +15,31 @@ public class LivroDAO extends ConnectionMgr
     public LivroDAO() {
     }
 
-    public ObservableList ListarTodos()
-    {
+    public void Inserir(Livro lvr) {
+        String sql = "insert into livros(titulo, quantidade, preco, data_lancamento, editora_id) values (?, ?, ?, ?, ?)";
+        try {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setString(1, lvr.getTitulo());
+            stmt.setInt(2, lvr.getQuantidade());
+            stmt.setFloat(3, lvr.getPreco());
+            stmt.setString(4, lvr.getData_lancamento().toString());
+            stmt.setInt(5, lvr.getEditora_id());
+            stmt.execute();
+            super.CloseConnection();
+        } catch (SQLException e) {
+            System.out.println("Erro inserir Livro");
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+    }
 
-        String sql = "select lvr.id, " +
-                "lvr.titulo," +
-                " lvr.quantidade," +
-                " lvr.preco," +
-                " lvr.data_lancamento," +
-                " lvr.editora_id," +
-                " edt.nome " +
-                " from livros as lvr " +
-                " inner join editoras as edt  " +
-                " on lvr.editora_id = edt.id " +
+    public ObservableList ListarTodos() {
+
+        String sql = "select lvr.id, lvr.titulo, lvr.quantidade, lvr.preco, lvr.data_lancamento, lvr.editora_id, edt.nome from livros as lvr inner join editoras as edt on lvr.editora_id = edt.id " +
                 " group by lvr.id,lvr.titulo,lvr.quantidade,lvr.preco,lvr.data_lancamento,lvr.editora_id,edt.nome";
         List<Livro> livros = new ArrayList<>();
-        try
-        {
+        try {
             super.InitConnection();
             PreparedStatement stmt = super.getConexao().prepareStatement(sql);
             ResultSet resultados = stmt.executeQuery();
@@ -49,7 +57,7 @@ public class LivroDAO extends ConnectionMgr
             }
             super.CloseConnection();
         } catch (SQLException e) {
-            System.out.println("Erro ao buscar todos Livros");
+            System.out.println("Erro Livros");
             System.out.println(e);
             throw new RuntimeException(e);
         }
@@ -57,51 +65,10 @@ public class LivroDAO extends ConnectionMgr
         return data;
     }
 
-    public void Inserir(Livro lvr)
-    {
-        //INSERT INTO livros(ID, TITULO, QUANTIDADE, EDITORA_ID, PRECO, DATA_LANCAMENTO) VALUES
-        String sql = "INSERT INTO livros(TITULO, QUANTIDADE, PRECO, DATA_LANCAMENTO, EDITORA_ID) VALUES (?, ?, ?, ?, ?)";
-        try
-        {
-            super.InitConnection();
-            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setString(1, lvr.getTitulo());
-            stmt.setInt(2, lvr.getQuantidade());
-            stmt.setFloat(3, lvr.getPreco());
-            stmt.setString(4, lvr.getData_lancamento().toString());
-            stmt.setInt(5, lvr.getEditora_id());
-            stmt.execute();
-            super.CloseConnection();
-        } catch (SQLException e) {
-            System.out.println("Erro ao inserir Livro!");
-            System.out.println(e);
-            throw new RuntimeException(e);
-        }
-    }
+    public void Alterar(Livro edt) {
+        String sql = "update livros set titulo= ?,quantidade= ? ,editora_id= ?,preco= ?  where id = ?";
 
-    public void Deletar(Livro lvr)
-    {
-        String sql = "delete from livros where id = ?";
-        try
-        {
-            super.InitConnection();
-            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setInt(1, lvr.getId());
-            stmt.execute();
-            super.CloseConnection();
-        } catch (SQLException e) {
-            System.out.println("Erro ao Deletar Livro");
-            System.out.println(e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void Alterar(Livro edt)
-    {
-        String sql = "UPDATE livros SET TITULO= ?,QUANTIDADE= ? ,EDITORA_ID= ?,PRECO= ?  WHERE ID = ?";
-
-        try
-        {
+        try {
             super.InitConnection();
             PreparedStatement stmt = super.getConexao().prepareStatement(sql);
             stmt.setString(1, edt.getTitulo());
@@ -113,11 +80,28 @@ public class LivroDAO extends ConnectionMgr
             stmt.execute();
             System.out.println("Alterado " + edt.getTitulo());
             super.CloseConnection();
+        }
 
-        } catch (SQLException e) {
+        catch (SQLException e) {
             System.out.println("Erro ao Alterar Editora");
             System.out.println(e);
             throw new RuntimeException(e);
         }
     }
+
+    public void Deletar(Livro lvr) {
+        String sql = "delete from livros where id = ?";
+        try {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setInt(1, lvr.getId());
+            stmt.execute();
+            super.CloseConnection();
+        } catch (SQLException e) {
+            System.out.println("Erro deletar livro");
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+    }
+
 }

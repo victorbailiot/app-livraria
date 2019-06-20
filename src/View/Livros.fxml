@@ -11,8 +11,8 @@
 <AnchorPane prefHeight="680.0" prefWidth="1219.0" style="-fx-background-color: #e6e6e6;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LivroController">
     <children>
         <Button fx:id="btnList" layoutX="1111.0" layoutY="624.0" mnemonicParsing="false" onAction="#InitTable" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Atualizar" />
-        <Button fx:id="btnSalvar" layoutX="1089.0" layoutY="86.0" mnemonicParsing="false" onAction="#Inserir" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
-        <Button fx:id="btnDeletar" layoutX="1010.0" layoutY="624.0" mnemonicParsing="false" onAction="#Deletar" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
+        <Button fx:id="btnSalvar" layoutX="992.0" layoutY="624.0" mnemonicParsing="false" onAction="#Inserir" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
+        <Button fx:id="btnDeletar" layoutX="889.0" layoutY="624.0" mnemonicParsing="false" onAction="#Deletar" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
 
         <TableView fx:id="tableView" layoutX="14.0" layoutY="130.0" prefHeight="486.0" prefWidth="1190.0">
             <columns>
@@ -31,7 +31,7 @@
         <TextField fx:id="txfQuant" layoutX="673.0" layoutY="46.0" prefHeight="25.0" prefWidth="263.0" promptText="Quantidade" />
         <TextField fx:id="txfPreco" layoutX="954.0" layoutY="46.0" prefHeight="25.0" prefWidth="246.0" promptText="Preço" />
         <DatePicker fx:id="dpLanc" layoutX="16.0" layoutY="89.0" prefHeight="25.0" prefWidth="294.0" promptText="Data de lançamento" />
-        <ComboBox fx:id="cbEdt" layoutX="330.0" layoutY="89.0" prefHeight="25.0" prefWidth="381.0" promptText="Selecione uma Editora" />
+        <ComboBox fx:id="cbEdt" layoutX="819.0" layoutY="89.0" prefHeight="25.0" prefWidth="381.0" promptText="Selecione uma Editora" />
 
     </children>
 </AnchorPane>

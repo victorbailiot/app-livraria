@@ -20,7 +20,6 @@ public class AutorController  implements Initializable
     @FXML private TableColumn<Autor,Integer> colId = new TableColumn<>("ID");
     @FXML private TableColumn<Autor,String> colNome = new TableColumn<>("NOME");
     @FXML private TableColumn<Autor,String> colEmail = new TableColumn<>("EMAIL");
-    @FXML private Button btnInserir,btnDeletar,btnRefresh;
     @FXML private TextField txfNome,txfEmail;
 
     private Autor autor = new Autor();
@@ -53,8 +52,7 @@ public class AutorController  implements Initializable
 
     private EventHandler<MouseEvent> TableClick = evt -> {
         ObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();
-        if (ObjetoSelecionado != null)
-            System.out.println("Selecionado: " + ObjetoSelecionado.getNome());
+
     };
 
     private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitNome = evt -> {
@@ -69,23 +67,6 @@ public class AutorController  implements Initializable
         autorDao.alterar( ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
     };
 
-    public void Deletar()
-    {
-        try
-        {
-            if(ObjetoSelecionado.getId() != 0)
-            {
-                autorDao.deletar(ObjetoSelecionado);
-                InitTable();
-            }
-
-        }catch (Exception e){
-            System.out.println("Erro ao Deletar");
-            System.out.println(e);
-        }
-
-    }
-
     public void Inserir()
     {
         autor.setNome(txfNome.getText());
@@ -97,11 +78,29 @@ public class AutorController  implements Initializable
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Cadastro de autores");
-        alert.setHeaderText("Autor cadastrado com sucesso");
+        alert.setHeaderText("Cadastrado com sucesso");
         alert.showAndWait();
 
         InitTable();
     }
+
+    public void Deletar()
+    {
+        try
+        {
+            if(ObjetoSelecionado.getId() != 0)
+            {
+                autorDao.deletar(ObjetoSelecionado);
+                InitTable();
+            }
+
+        }catch (Exception e){
+            System.out.println("Erro Deletar");
+            System.out.println(e);
+        }
+
+    }
+
 
     private void limparCampos()
     {

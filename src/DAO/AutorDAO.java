@@ -1,9 +1,8 @@
 package DAO;
 
+import Model.Autor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import Model.Autor;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +11,7 @@ import java.util.List;
 
 public class AutorDAO extends ConnectionMgr
 {
-    public AutorDAO()
-    {
+    public AutorDAO() {
     }
 
     public void inserir(Autor autor)
@@ -92,7 +90,6 @@ public class AutorDAO extends ConnectionMgr
             super.InitConnection();
             PreparedStatement stmt = super.getConexao().prepareStatement(sql);
             stmt.setInt(1, autor.getId());
-            //Executar
             stmt.execute();
             super.CloseConnection();
         } catch (SQLException e) {
@@ -101,32 +98,5 @@ public class AutorDAO extends ConnectionMgr
             throw new RuntimeException(e);
         }
 
-    }
-
-    public Autor listarPorId(Autor autor)
-    {
-        String sql = "select id, nome, email from autores where id = ?";
-
-        try {
-            super.InitConnection();
-            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
-            stmt.setInt(1, autor.getId());
-
-            //Executar
-            ResultSet resultados = stmt.executeQuery();
-
-            //Encontra resultado
-            while(resultados.next()) {
-                autor.setId(resultados.getInt("id"));
-                autor.setNome(resultados.getString("nome"));
-                autor.setEmail(resultados.getString("email"));
-            }
-
-            super.CloseConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return autor;
     }
 }
